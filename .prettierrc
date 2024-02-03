@@ -1,15 +1,8 @@
 {
-    "singleQuote": true,
-    "jsxSingleQuote": true,
-    "semi": true,
-    "tabWidth": 2,
-    "printWidth": 80,
-    "bracketSpacing": true,
-    "jsxBracketSameLine": false,
-    "arrowParens": "always",
-    "trailingComma": "none",
-    "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
-    "importOrderSeparation": true,
-    "importOrderSortSpecifiers": true
-  }
-  
+	"useTabs": false,
+	"singleQuote": true,
+	"trailingComma": "none",
+	"printWidth": 100,
+	"plugins": ["prettier-plugin-svelte"],
+	"overrides": [{ "files": "*.svelte", "options": { "parser": "svelte" } }]
+}
