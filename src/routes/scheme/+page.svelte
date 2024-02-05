@@ -1,4 +1,7 @@
 <script lang="ts">
+  import FormCheckbox from '$lib/components/FormCheckbox.svelte';
+  import FormInput from '$lib/components/FormInput.svelte';
+  import FormSelect from '$lib/components/FormSelect.svelte';
   import type { PageData } from './$types';
 
   export let data: PageData;
@@ -9,31 +12,35 @@
     <p class="mb-4">Generate a scheme from one color.</p>
     <form class="flex flex-col gap-4">
       <div class="flex flex-row gap-4">
-        <div class="flex flex-col gap-1">
-          <label for="color">Color hexcode</label>
-          <input
-            class="px-1.5 py-0.5 border-solid bg-neutral-700 outline-0 focus:outline focus:outline-2 focus:outline-indigo-500 rounded"
-            placeholder="#"
+        <div class="flex flex-col w-2/12 gap-1">
+          <FormInput
+            label="Color Hexcode"
             name="color"
+            placeholder="#FFFFFF"
             value={data.color ?? ''}
           />
         </div>
 
-        <div class="flex flex-col gap-1">
-          <label for="theme">Scheme type</label>
-          <select
-            class="px-1.5 py-0.5 border-solid bg-neutral-700 outline-0 focus:outline focus:outline-2 focus:outline-indigo-500 rounded"
-            name="theme"
-            value={data.theme ?? ''}
-          >
+        <div class="flex flex-col w-2/12 gap-1">
+          <FormSelect label="Theme" name="theme" value={data.theme ?? ''}>
             <option value="dark">Dark</option>
             <option value="light">Light</option>
-          </select>
+          </FormSelect>
         </div>
 
         <div class="flex flex-col gap-1">
-          <label for="color">Color hexcode</label>
-          <input type="checkbox" name="partitioned" class="bg-neutral-700" />
+          <div class="flex flex-row items-center gap-2">
+            <FormCheckbox
+              checked={data.split === 'on' ? true : false}
+              name="split"
+              label="Split Colors"
+            />
+          </div>
+
+          <div class="flex flex-row gap-2">
+            <FormInput name="parts" placeholder="Parts" value={data.parts ?? ''} />
+            <FormInput name="step" placeholder="Step" value={data.step ?? ''} />
+          </div>
         </div>
       </div>
       <div>
@@ -48,16 +55,18 @@
   <section class="flex flex-grow w-full overflow-hidden">
     <div class="relative w-1/2">
       {#if data.scheme}
-        <ul class="absolute top-0 left-0 flex flex-col w-full h-full overflow-y-scroll list-none">
-          {#each data.scheme as entry}
-            <li
-              class="flex justify-center w-full p-4 group"
-              style={`background-color: ${entry[1]};`}
-            >
-              <span
-                class="invisible px-2 py-1 font-mono align-middle bg-black border border-white group-hover:visible"
-                >{entry[0]}</span
-              >
+        <ul class="absolute top-0 left-0 w-full h-full overflow-y-scroll list-none">
+          {#each data.scheme1 as entry}
+            <li class="h-10">
+              <div class="relative flex flex-row justify-center w-full h-full group">
+                {#each entry.colors as color}
+                  <div class="flex-grow h-full" style={`background-color: ${color};`}></div>
+                {/each}
+                <!-- <span
+                  class="absolute top-0 left-0 invisible w-full px-2 py-1 font-mono align-middle bg-black border border-white group-hover:visible"
+                  >{entry[0]}</span
+                > -->
+              </div>
             </li>
           {/each}
         </ul>

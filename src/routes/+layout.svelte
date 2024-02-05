@@ -4,7 +4,7 @@
 </script>
 
 <nav class="px-4 py-2 border-b-2 bg-neutral-900 border-neutral-600">
-  <a class="px-2 py-0.5 font-bold text-white bg-black hover:underline" href="/">dzntools</a>
+  <a class="px-2 py-0.5 font-semibold hover:underline" href="/">dzntools</a>
 </nav>
 <div class="flex flex-row h-full">
   <aside class="flex flex-col w-2/12 gap-2 px-4 py-4 border-r-2 border-neutral-600 bg-neutral-900">

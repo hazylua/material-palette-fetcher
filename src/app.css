@@ -4,5 +4,5 @@
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: theme('colors.purple.500') theme('colors.neutral.200');
+  scrollbar-color: theme('colors.indigo.500') theme('colors.neutral.200');
 }

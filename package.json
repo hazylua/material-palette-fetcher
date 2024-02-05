@@ -15,6 +15,7 @@
 		"@sveltejs/adapter-auto": "^3.0.0",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
+		"@tailwindcss/forms": "^0.5.7",
 		"@types/eslint": "8.56.0",
 		"@typescript-eslint/eslint-plugin": "^6.0.0",
 		"@typescript-eslint/parser": "^6.0.0",
@@ -36,6 +37,7 @@
 	"type": "module",
 	"dependencies": {
 		"@material/material-color-utilities": "^0.2.7",
-		"clsx": "^2.1.0"
+		"clsx": "^2.1.0",
+		"lodash": "^4.17.21"
 	}
 }
