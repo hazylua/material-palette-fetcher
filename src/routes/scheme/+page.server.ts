@@ -1,4 +1,4 @@
-import { Scheme, argbFromHex, hexFromArgb, Hct } from '@material/material-color-utilities';
+import { Scheme, argbFromHex, hexFromArgb } from '@material/material-color-utilities';
 import type { PageServerLoad } from './$types';
 
 const hexColorRegex = /^#(?:[0-9a-fA-F]{3,4}){1,2}$/;
@@ -9,25 +9,9 @@ function throwErr(msg: string | null) {
   };
 }
 
-function parseNumberParam(num: string | null): number {
-  if (num != null) {
-    return parseInt(num);
-  } else {
-    return 0;
-  }
-}
-
-function createTonalArray(argb: number, parts: number, step: number) {
-  const hct = Hct.fromInt(argb);
-  const arr = [];
-  let prevTone: number | null = null;
-  for (let i = 0; i <= parts; i++) {
-    prevTone = prevTone === null ? hct.internalTone : prevTone;
-    prevTone = prevTone - step;
-    hct.internalTone = prevTone;
-    arr.push(hexFromArgb(Hct.from(hct.hue, hct.chroma, hct.tone).toInt()).toUpperCase());
-  }
-  return arr;
+function createTonalArray(argb: number) {
+  //console.log(makePalette);
+  return [{ original: true, hex: hexFromArgb(argb) }];
 }
 
 export const load: PageServerLoad = ({ url }) => {
@@ -49,17 +33,16 @@ export const load: PageServerLoad = ({ url }) => {
           return throwErr(null);
         }
 
-        let arr: Array<{ colorName: string; colors: string[] }> = [];
+        let arr: Array<{ colorName: string; colors: { hex: string; original: boolean }[] }> = [];
         if (split === 'on') {
-          const partsParsed = parseNumberParam(parts);
-          const stepParsed = parseNumberParam(step);
           arr = Object.entries(scheme.toJSON()).map((entry) => {
             return {
               colorName: entry[0],
-              colors: createTonalArray(entry[1], partsParsed, stepParsed)
+              colors: createTonalArray(entry[1])
             };
           });
         }
+        console.log(arr);
 
         return {
           color,

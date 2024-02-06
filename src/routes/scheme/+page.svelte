@@ -2,6 +2,7 @@
   import FormCheckbox from '$lib/components/FormCheckbox.svelte';
   import FormInput from '$lib/components/FormInput.svelte';
   import FormSelect from '$lib/components/FormSelect.svelte';
+  import clsx from 'clsx';
   import type { PageData } from './$types';
 
   export let data: PageData;
@@ -53,14 +54,22 @@
     </form>
   </section>
   <section class="flex flex-grow w-full overflow-hidden">
-    <div class="relative w-1/2">
+    <div class="relative w-full">
       {#if data.scheme}
         <ul class="absolute top-0 left-0 w-full h-full overflow-y-scroll list-none">
           {#each data.scheme1 as entry}
             <li class="h-10">
               <div class="relative flex flex-row justify-center w-full h-full group">
                 {#each entry.colors as color}
-                  <div class="flex-grow h-full" style={`background-color: ${color};`}></div>
+                  <div class="relative flex-grow h-full" style={`background-color: ${color.hex};`}>
+                    {#if color.original === true}
+                      <div
+                        class="absolute top-0 left-0 flex justify-center w-full h-full align-middle"
+                      >
+                        <span class="fit">DSADSA</span>
+                      </div>
+                    {/if}
+                  </div>
                 {/each}
                 <!-- <span
                   class="absolute top-0 left-0 invisible w-full px-2 py-1 font-mono align-middle bg-black border border-white group-hover:visible"
