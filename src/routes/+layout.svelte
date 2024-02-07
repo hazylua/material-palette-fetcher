@@ -7,7 +7,7 @@
   <a class="hover:underline" href="/">Design Tools</a>
 </nav>
 <div class="flex h-full flex-row">
-  <aside class="flex flex-col gap-2 border-r-2 border-neutral-600 bg-neutral-900 py-4 px-4">
+  <aside class="flex flex-col gap-2 border-r-2 border-neutral-600 bg-neutral-900 px-4 py-4">
     <AsideLink href="/scheme">Schemes</AsideLink>
     <AsideLink href="/palette">Palettes</AsideLink>
   </aside>
