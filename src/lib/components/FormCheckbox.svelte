@@ -5,7 +5,7 @@
 </script>
 
 <input
-  class="w-4 h-4 text-indigo-500 rounded dark:border-indigo-500 dark:focus:ring-white dark:ring-offset-neutral-800 focus:ring-2 dark:bg-neutral-700"
+  class="h-4 w-4 rounded text-indigo-500 focus:ring-2 dark:border-indigo-500 dark:bg-neutral-700 dark:ring-offset-neutral-800 dark:focus:ring-white"
   type="checkbox"
   {checked}
   {name}

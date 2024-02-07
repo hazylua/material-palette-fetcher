@@ -1,1 +1,1 @@
-<div class="flex gap-4 px-1 mx-auto"></div>
+<div class="mx-auto flex gap-4 px-1"></div>

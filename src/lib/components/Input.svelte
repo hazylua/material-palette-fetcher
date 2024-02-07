@@ -5,4 +5,4 @@
   interface $$Props extends HTMLInputAttributes {}
 </script>
 
-<input class={clsx('px-1.5 py-0.5 bg-neutral-700 rounded')} {...$$restProps} />
+<input class={clsx('rounded bg-neutral-700 px-1.5 py-0.5')} {...$$restProps} />

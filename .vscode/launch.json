@@ -15,19 +15,8 @@
       "type": "firefox",
       "request": "launch",
       "reAttach": true,
-      "profile": "web-dev",
       "url": "http://localhost:5173",
-      "webRoot": "${workspaceFolder}/app",
-      "pathMappings": [
-        {
-          "url": "http://localhost:5173/src",
-          "path": "${workspaceFolder}/src"
-        },
-        {
-          "url": "webpack://_n_e",
-          "path": "${workspaceFolder}"
-        }
-      ]
+      "webRoot": "${workspaceFolder}/app"
     }
   ]
 }
