@@ -8,7 +8,11 @@
   <label for={name}>{label}</label>
 {/if}
 <select
-  class="border-solid px-1.5 py-0.5 outline outline-1 dark:border-neutral-500 dark:bg-neutral-700 dark:outline-neutral-500 dark:focus:border-current dark:focus:outline-indigo-500 dark:focus:ring-current"
+  class="border-solid px-1.5 py-0.5 outline outline-1
+  dark:border-neutral-500
+   dark:bg-neutral-700
+    dark:outline-neutral-500 dark:focus:border-current
+    dark:focus:outline-indigo-500 dark:focus:ring-current"
   {name}
   {value}
 >

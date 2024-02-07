@@ -25,10 +25,22 @@ export const load: PageServerLoad = ({ url }) => {
           return throwErr(null);
         }
 
+        const arr = Object.entries(scheme.toJSON()).map((entry) => [
+          entry[0],
+          hexFromArgb(entry[1])
+        ]);
+
         return {
           color,
           theme,
-          scheme: Object.entries(scheme.toJSON()).map((entry) => [entry[0], hexFromArgb(entry[1])])
+          scheme: arr,
+          json: JSON.stringify(
+            arr.reduceRight((prev, curr) => {
+              return { [curr[0]]: curr[1], ...prev };
+            }, {}),
+            null,
+            1
+          )
         };
       } else {
         return throwErr(null);
