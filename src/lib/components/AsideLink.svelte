@@ -4,7 +4,6 @@
   export let href: string;
 </script>
 
-<a
-  class={clsx('mr-10 hover:underline', $page.url.pathname.includes(href) && 'text-purple-500')}
-  {href}><slot /></a
+<a class={clsx('mr-10 hover:underline', $page.url.pathname.includes(href) && 'text-primary font-semibold')} {href}
+  ><slot /></a
 >

@@ -1,11 +1,11 @@
-import { Scheme, argbFromHex, hexFromArgb } from '@material/material-color-utilities';
+import { CorePalette, Scheme, argbFromHex, hexFromArgb } from '@material/material-color-utilities';
 import type { PageServerLoad } from './$types';
 
 const hexColorRegex = /^#(?:[0-9a-fA-F]{3,4}){1,2}$/;
 
 function throwErr(msg: string | null) {
   return {
-    err: msg ?? 'Invalid params.'
+    err: msg ?? 'An error has occurred.'
   };
 }
 
@@ -13,6 +13,7 @@ export const load: PageServerLoad = ({ url }) => {
   if (url.searchParams) {
     const color = url.searchParams.get('color');
     const theme = url.searchParams.get('theme');
+    const type = url.searchParams.get('type');
 
     if (color != null) {
       if (hexColorRegex.test(color)) {
@@ -20,9 +21,21 @@ export const load: PageServerLoad = ({ url }) => {
 
         let scheme;
         if (theme != null) {
-          scheme = theme === 'light' ? Scheme.light(argb) : Scheme.dark(argb);
+          if (type === 'default') {
+            scheme = theme === 'light' ? Scheme.dark(argb) : Scheme.light(argb);
+          } else if (type === 'content') {
+            scheme = theme === 'light' ? Scheme.lightContent(argb) : Scheme.darkContent(argb);
+          } else if (type === 'from-core-palette') {
+            const corePalette = CorePalette.contentOf(argb);
+            scheme =
+              theme === 'light'
+                ? Scheme.lightFromCorePalette(corePalette)
+                : Scheme.darkFromCorePalette(corePalette);
+          } else {
+            return throwErr('Invalid type.');
+          }
         } else {
-          return throwErr(null);
+          return throwErr('Invalid theme.');
         }
 
         const arr = Object.entries(scheme.toJSON()).map((entry) => [
@@ -33,6 +46,7 @@ export const load: PageServerLoad = ({ url }) => {
         return {
           color,
           theme,
+          type,
           scheme: arr,
           json: JSON.stringify(
             arr.reduceRight((prev, curr) => {
@@ -43,7 +57,7 @@ export const load: PageServerLoad = ({ url }) => {
           )
         };
       } else {
-        return throwErr(null);
+        return throwErr('Invalid color.');
       }
     }
   }
