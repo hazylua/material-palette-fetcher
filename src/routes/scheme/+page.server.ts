@@ -22,7 +22,7 @@ export const load: PageServerLoad = ({ url }) => {
         let scheme;
         if (theme != null) {
           if (type === 'default') {
-            scheme = theme === 'light' ? Scheme.dark(argb) : Scheme.light(argb);
+            scheme = theme === 'light' ? Scheme.light(argb) : Scheme.dark(argb);
           } else if (type === 'content') {
             scheme = theme === 'light' ? Scheme.lightContent(argb) : Scheme.darkContent(argb);
           } else if (type === 'from-core-palette') {
