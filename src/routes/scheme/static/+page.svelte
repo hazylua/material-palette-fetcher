@@ -3,6 +3,9 @@
   import FormSelect from '$lib/components/FormSelect.svelte';
   import ColorPicker from '$lib/components/ColorPicker.svelte';
   import type { PageData } from './$types';
+  import clsx from 'clsx';
+  import FormRadio from '$lib/components/FormRadio.svelte';
+  import FormCheckbox from '$lib/components/FormCheckbox.svelte';
 
   export let data: PageData;
 </script>
@@ -14,7 +17,7 @@
     </div>
     <form class="flex flex-col gap-4">
       <div class="flex flex-row gap-4">
-        <div class="flex flex-row items-end gap-2">
+        <div class="flex flex-row items-center gap-2">
           <!-- <FormInput name="color" type="color" value={data.color ?? ''} />
           <div class="flex flex-col gap-1">
             <FormInput
@@ -34,12 +37,31 @@
           </FormSelect>
         </div>
 
-        <div class="flex w-2/12 flex-col gap-1">
-          <FormSelect label="Scheme Type" name="type" value={data.type ?? ''}>
-            <option value="default">Default</option>
-            <option value="content">Content</option>
-            <option value="from-core-palette">From color's core palette</option>
-          </FormSelect>
+        <div class="flex w-2/12 flex-col justify-between gap-1">
+          <div class="flex flex-row items-center gap-2">
+            <FormRadio
+              name="type"
+              value="default"
+              label="Default"
+              checked={data.type === 'default'}
+            />
+          </div>
+          <div class="flex flex-row items-center gap-2">
+            <FormRadio
+              name="type"
+              value="content"
+              label="Content"
+              checked={data.type === 'content'}
+            />
+          </div>
+          <div class="flex flex-row items-center gap-2">
+            <FormRadio
+              name="type"
+              value="from-core-palette"
+              label="Core Palette"
+              checked={data.type === 'from-core-palette'}
+            />
+          </div>
         </div>
       </div>
       <div>
@@ -65,7 +87,10 @@
               </li>
             {/each}
           </ul>
-          <div class="h-full w-1/2 overflow-y-scroll"><pre>{data.json}</pre></div>
+          <div class="h-full w-1/2 overflow-y-scroll">
+            <p>Click on the text below to select all of it.</p>
+            <pre class="select-all">{data.json}</pre>
+          </div>
         </div>
       {/if}
       {#if data.err}

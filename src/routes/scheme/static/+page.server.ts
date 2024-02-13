@@ -1,5 +1,5 @@
 import { CorePalette, Scheme, argbFromHex, hexFromArgb } from '@material/material-color-utilities';
-import type { PageServerLoad } from './$types';
+import type { PageServerLoad } from '../$types';
 
 const hexColorRegex = /^#(?:[0-9a-fA-F]{3,4}){1,2}$/;
 
@@ -9,11 +9,17 @@ function throwErr(msg: string | null) {
   };
 }
 
+function getStaticSchemeParams(searchParams: URLSearchParams) {
+  return {
+    color: searchParams.get('color'),
+    theme: searchParams.get('theme'),
+    type: searchParams.get('type')
+  };
+}
+
 export const load: PageServerLoad = ({ url }) => {
   if (url.searchParams) {
-    const color = url.searchParams.get('color');
-    const theme = url.searchParams.get('theme');
-    const type = url.searchParams.get('type');
+    const { color, theme, type } = getStaticSchemeParams(url.searchParams);
 
     if (color != null) {
       if (hexColorRegex.test(color)) {
@@ -57,7 +63,7 @@ export const load: PageServerLoad = ({ url }) => {
           )
         };
       } else {
-        return throwErr('Invalid color.');
+        return throwErr('Invalid color format.');
       }
     }
   }

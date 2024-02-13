@@ -20,11 +20,10 @@
 <style lang="postcss">
   :global(html) {
   }
-  /* input[type='color'] {
-    border-radius: 5px;
+  input[type='color'] {
+    border-radius: 9999px;
     padding: 0;
-    border: 5px solid #ddd;
-  } */
+  }
 
   input[type='color']::-moz-color-swatch {
     border: none;
@@ -32,7 +31,7 @@
 
   input[type='color']::-webkit-color-swatch-wrapper {
     padding: 0;
-    border-radius: 0;
+    border-radius: 9999px;
   }
 
   input[type='color']::-webkit-color-swatch {
