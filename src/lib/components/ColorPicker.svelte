@@ -1,6 +1,5 @@
 <script lang="ts">
   import clsx from 'clsx';
-  import type { HTMLInputAttributes } from 'svelte/elements';
 
   export let name: string | null = null;
   export let value: string | null = null;
@@ -15,8 +14,8 @@
     bg-background
     outline-none
     outline
-    focus:border-current focus:outline-1 focus:outline-primary focus:ring-0
-    hover:border-primary
+    hover:border-primary focus:border-current focus:outline-1 focus:outline-primary
+    focus:ring-0
     `,
     className
   )}
