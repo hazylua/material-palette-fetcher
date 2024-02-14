@@ -5,7 +5,6 @@
   import type { PageData } from './$types';
   import clsx from 'clsx';
   import FormRadio from '$lib/components/FormRadio.svelte';
-  import FormCheckbox from '$lib/components/FormCheckbox.svelte';
   import FormButton from '$lib/components/FormButton.svelte';
 
   export let data: PageData;
@@ -18,21 +17,17 @@
     </div>
     <form class="flex flex-col gap-4">
       <div class="flex flex-row gap-4">
-        <div class="flex flex-row items-start gap-2">
-          <!-- <FormInput name="color" type="color" value={data.color ?? ''} />
-          <div class="flex flex-col gap-1">
-            <FormInput
-              label="Color Hexcode"
-              name="color"
-              placeholder="#FFFFFF"
-              value={data.color ?? ''}
-            />
-          </div> -->
-          <ColorPicker name="color" class="h-10 w-10" value={data.color ?? ''} />
+        <div class="flex flex-col items-start gap-1">
+          <label for="theme">Root Color</label>
+          <div class="flex flex-row gap-2">
+            <div><ColorPicker name="color" class="h-10 w-10" value={data.color ?? ''} /></div>
+            <div><FormInput name="color" placeholder="#FFFFFF" value={data.color ?? ''} /></div>
+          </div>
         </div>
 
         <div class="flex w-2/12 flex-col gap-1">
-          <FormSelect label="Scheme Theme" name="theme" value={data.theme ?? ''}>
+          <label for="theme">Scheme Theme</label>
+          <FormSelect name="theme" value={data.theme ?? ''}>
             <option value="dark">Dark</option>
             <option value="light">Light</option>
           </FormSelect>

@@ -10,17 +10,18 @@
 </script>
 
 <button
+  {...$$restProps}
   class={clsx(
-    `appearance-none rounded border-solid border-outline
-    bg-background px-1.5
-    py-0.5
-    outline
-    outline-1 outline-outline
-    hover:border-primary hover:outline-primary
-    focus:border-current focus:outline-primary focus:ring-current`,
+    `
+    appearance-none rounded
+    border border-outline
+    bg-background
+    px-2 py-1
+    outline-none
+    focus:border-current focus:outline-1 focus:outline-primary
+    `,
     $$restProps.class
   )}
-  {...$$restProps}
 >
   <slot />
 </button>

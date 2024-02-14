@@ -3,7 +3,6 @@
   import type { HTMLInputAttributes } from 'svelte/elements';
 
   export let name: string | null = null;
-  export let placeholder: string | null = null;
   export let value: string | null = null;
 
   interface $$Props extends HTMLInputAttributes {}
@@ -17,14 +16,13 @@
     bg-background
     outline-none
     outline
-    focus:outline-primary focus:border-current  focus:ring-offset-background
+    focus:border-current focus:outline-primary  focus:ring-offset-background
     `,
     $$restProps.class
   )}
   type="color"
   {value}
   {name}
-  {placeholder}
 />
 
 <style lang="postcss">
