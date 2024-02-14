@@ -4,21 +4,21 @@
 
   export let name: string | null = null;
   export let value: string | null = null;
-
-  interface $$Props extends HTMLInputAttributes {}
+  export let className: string | null = null;
 </script>
 
 <input
   class={clsx(
     `
     appearance-none
-    border-2 border-solid border-outline
+    border border-outline
     bg-background
     outline-none
     outline
-    focus:border-current focus:outline-primary  focus:ring-offset-background
+    focus:border-current focus:outline-1 focus:outline-primary focus:ring-0
+    hover:border-primary
     `,
-    $$restProps.class
+    className
   )}
   type="color"
   {value}
@@ -35,6 +35,7 @@
 
   input[type='color']::-moz-color-swatch {
     border: none;
+    border-radius: 9999px;
   }
 
   input[type='color']::-webkit-color-swatch-wrapper {
@@ -44,5 +45,6 @@
 
   input[type='color']::-webkit-color-swatch {
     border: none;
+    border-radius: 9999px;
   }
 </style>

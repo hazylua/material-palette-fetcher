@@ -18,7 +18,7 @@
     bg-background
     px-2 py-1
     outline-none
-    focus:border-current focus:outline-1 focus:outline-primary
+    focus:border-current focus:outline-1 focus:outline-primary hover:border-primary
     `,
     $$restProps.class
   )}

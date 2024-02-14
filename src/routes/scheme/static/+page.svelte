@@ -20,7 +20,7 @@
         <div class="flex flex-col items-start gap-1">
           <label for="theme">Root Color</label>
           <div class="flex flex-row gap-2">
-            <div><ColorPicker name="color" class="h-10 w-10" value={data.color ?? ''} /></div>
+            <div><ColorPicker name="color" className="h-10 w-10" value={data.color ?? ''} /></div>
             <div><FormInput name="color" placeholder="#FFFFFF" value={data.color ?? ''} /></div>
           </div>
         </div>
