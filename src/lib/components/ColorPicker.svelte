@@ -1,6 +1,7 @@
 <script lang="ts">
   import clsx from 'clsx';
 
+  export let id: string | null = null;
   export let name: string | null = null;
   export let value: string | null = null;
   export let className: string | null = null;
@@ -20,6 +21,7 @@
     className
   )}
   type="color"
+  {id}
   {value}
   {name}
 />

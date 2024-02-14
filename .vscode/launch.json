@@ -17,7 +17,13 @@
       "reAttach": true,
       "url": "http://localhost:5173",
       "webRoot": "${workspaceFolder}/src",
-      "profile": "web-dev"
+      "profile": "web-dev",
+      "pathMappings": [
+        {
+          "url": "http://localhost:5173/src",
+          "path": "${workspaceFolder}/src"
+        }
+      ]
     }
   ]
 }

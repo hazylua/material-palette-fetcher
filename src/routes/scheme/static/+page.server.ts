@@ -1,7 +1,6 @@
 import { CorePalette, Scheme, argbFromHex, hexFromArgb } from '@material/material-color-utilities';
 import type { PageServerLoad } from '../$types';
-
-const hexColorRegex = /^#(?:[0-9a-fA-F]{3,4}){1,2}$/;
+import { hexColorRegex } from '$lib/util/regex';
 
 function throwErr(msg: string | null) {
   return {

@@ -17,6 +17,8 @@
   hover:border-primary
   focus:border-current focus:outline-primary focus:ring-0
   "
+  on:keydown
+  on:change
   {type}
   {value}
   {name}

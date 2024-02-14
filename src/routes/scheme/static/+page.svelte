@@ -3,11 +3,23 @@
   import FormSelect from '$lib/components/FormSelect.svelte';
   import ColorPicker from '$lib/components/ColorPicker.svelte';
   import type { PageData } from './$types';
-  import clsx from 'clsx';
   import FormRadio from '$lib/components/FormRadio.svelte';
   import FormButton from '$lib/components/FormButton.svelte';
+  import { hexColorRegex } from '$lib/util/regex';
 
   export let data: PageData;
+
+  function changeColorPickerValue(e: KeyboardEvent) {
+    console.log(e.currentTarget);
+    if (e.shiftKey === true && e.key === 'Enter' && e.target != null) {
+      const value = (e.target as HTMLInputElement).value;
+      if (hexColorRegex.test(value)) {
+        colorPickerValue = value;
+      }
+    }
+  }
+
+  export let colorPickerValue = data.color ?? '';
 </script>
 
 <div class="flex h-full flex-col gap-4 p-4">
@@ -20,8 +32,24 @@
         <div class="flex flex-col items-start gap-1">
           <label for="theme">Root Color</label>
           <div class="flex flex-row gap-2">
-            <div><ColorPicker name="color" className="h-10 w-10" value={data.color ?? ''} /></div>
-            <div><FormInput name="color" placeholder="#FFFFFF" value={data.color ?? ''} /></div>
+            <div>
+              <ColorPicker
+                id="color"
+                name="color"
+                className="h-8 w-8"
+                value={colorPickerValue ?? data.color}
+              />
+            </div>
+            <div class="flex flex-col gap-1">
+              <FormInput
+                placeholder="#FFFFFF"
+                value={colorPickerValue ?? data.color}
+                on:keydown={changeColorPickerValue}
+              />
+              <p class="text-xs font-normal text-onBackground">
+                Press <span class="font-mono text-primary">Shift+Enter</span> to update color value.
+              </p>
+            </div>
           </div>
         </div>
 
