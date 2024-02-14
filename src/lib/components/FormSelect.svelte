@@ -13,7 +13,7 @@
 {/if}
 <select
   class={clsx(
-    `appearance-none border-solid border-outline
+    `appearance-none border-solid border-outline rounded
     bg-background px-1.5
     py-0.5
     outline

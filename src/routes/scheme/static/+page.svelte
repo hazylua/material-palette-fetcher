@@ -6,6 +6,7 @@
   import clsx from 'clsx';
   import FormRadio from '$lib/components/FormRadio.svelte';
   import FormCheckbox from '$lib/components/FormCheckbox.svelte';
+  import FormButton from '$lib/components/FormButton.svelte';
 
   export let data: PageData;
 </script>
@@ -17,7 +18,7 @@
     </div>
     <form class="flex flex-col gap-4">
       <div class="flex flex-row gap-4">
-        <div class="flex flex-row items-center gap-2">
+        <div class="flex flex-row items-start gap-2">
           <!-- <FormInput name="color" type="color" value={data.color ?? ''} />
           <div class="flex flex-col gap-1">
             <FormInput
@@ -37,35 +38,56 @@
           </FormSelect>
         </div>
 
-        <div class="flex w-2/12 flex-col justify-between gap-1">
-          <div class="flex flex-row items-center gap-2">
-            <FormRadio
-              name="type"
-              value="default"
-              label="Default"
-              checked={data.type === 'default'}
-            />
-          </div>
-          <div class="flex flex-row items-center gap-2">
-            <FormRadio
-              name="type"
-              value="content"
-              label="Content"
-              checked={data.type === 'content'}
-            />
-          </div>
-          <div class="flex flex-row items-center gap-2">
-            <FormRadio
-              name="type"
-              value="from-core-palette"
-              label="Core Palette"
-              checked={data.type === 'from-core-palette'}
-            />
+        <div class="w-4/12">
+          <div class="mb-1">Scheme Type</div>
+          <div
+            class="flex w-fit flex-col justify-between rounded border border-primary bg-surfaceVariant text-onSurfaceVariant"
+          >
+            <div class="flex flex-row items-center gap-3 border-b border-outline px-2 py-1">
+              <FormRadio
+                name="type"
+                value="default"
+                checked={data.type === 'default'}
+                className="peer"
+              />
+              <div class="peer-checked:text-primary">
+                <label for="default">Default</label>
+                <p class="text-xs font-normal text-onBackground">Default color scheme.</p>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="flex flex-row items-center gap-3 border-b border-outline px-2 py-1">
+                <FormRadio
+                  name="type"
+                  value="content"
+                  checked={data.type === 'content'}
+                  className="peer"
+                />
+                <div class="peer-checked:text-primary">
+                  <label for="default">Content</label>
+                  <p class="text-xs font-normal text-onBackground">Content color scheme.</p>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-row items-center gap-3 border-outline px-2 py-1">
+              <FormRadio
+                name="type"
+                value="from-core-palette"
+                checked={data.type === 'from-core-palette'}
+                className="peer"
+              />
+              <div class="peer-checked:text-primary">
+                <label for="default">Core Palette</label>
+                <p class="text-xs font-normal text-onBackground">
+                  Color scheme from the color's core palette.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div>
-        <FormInput type="submit" value="Generate" />
+        <FormButton type="submit">Generate</FormButton>
       </div>
     </form>
   </section>

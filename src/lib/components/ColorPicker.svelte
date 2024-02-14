@@ -10,7 +10,17 @@
 </script>
 
 <input
-  class={clsx('rounded-full border-2 border-outline hover:border-primary', $$restProps.class)}
+  class={clsx(
+    `
+    appearance-none
+    border-2 border-solid border-outline
+    bg-background
+    outline-none
+    outline
+    focus:outline-primary focus:border-current  focus:ring-offset-background
+    `,
+    $$restProps.class
+  )}
   type="color"
   {value}
   {name}

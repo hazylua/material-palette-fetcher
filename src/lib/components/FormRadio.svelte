@@ -1,17 +1,21 @@
 <script lang="ts">
-  export let label: string | null = null;
-  export let name: string;
-  export let checked: boolean | null = false;
-  export let value: string;
+  import clsx from 'clsx';
+  import type { HTMLInputAttributes } from 'svelte/elements';
+
+  export let className: string | null = null;
+
+  interface $$Props extends Omit<HTMLInputAttributes, 'class'> {
+    className: string | null;
+  }
 </script>
 
 <input
-  class="h-4 w-4 appearance-none rounded-full
-  border-primary border-2
-  bg-background text-primary ring-offset-primary focus:ring-2 focus:ring-primary focus:ring-offset-background"
+  class={clsx(
+    `h-4 w-4 appearance-none rounded-full
+      border-2 border-primary
+      bg-background text-primary ring-offset-primary focus:ring-2 focus:ring-primary focus:ring-offset-background`,
+    className
+  )}
   type="radio"
-  {value}
-  {checked}
-  {name}
+  {...$$restProps}
 />
-<label for={name}>{label}</label>

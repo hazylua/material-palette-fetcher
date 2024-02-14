@@ -12,11 +12,13 @@
   <label for={name}>{label}</label>
 {/if}
 <input
-  class="appearance-none border-solid border-outline bg-background px-1.5
-   py-0.5
-    outline
-     outline-1 outline-outline
-     focus:outline-primary focus:ring-current dark:focus:border-current"
+  class="
+  appearance-none border-solid border-outline bg-background px-1.5
+  py-0.5
+  outline
+  outline-1 outline-outline
+  focus:border-current focus:outline-primary focus:ring-current
+  "
   {type}
   {value}
   {name}

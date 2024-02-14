@@ -4,14 +4,9 @@
     {
       "name": "Launch server",
       "request": "launch",
-      "runtimeArgs": [
-        "run-script",
-        "dev"
-      ],
+      "runtimeArgs": ["run-script", "dev"],
       "runtimeExecutable": "npm",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
+      "skipFiles": ["<node_internals>/**"],
       "type": "node",
       "console": "integratedTerminal"
     },
@@ -21,13 +16,8 @@
       "request": "launch",
       "reAttach": true,
       "url": "http://localhost:5173",
-      "webRoot": "${workspaceFolder}/app",
-      "pathMappings": [
-        {
-          "url": "http://localhost:5173/src",
-          "path": "${workspaceFolder}/src"
-        }
-      ]
+      "webRoot": "${workspaceFolder}/src",
+      "profile": "web-dev"
     }
   ]
 }
