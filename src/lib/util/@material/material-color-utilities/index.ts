@@ -15,27 +15,17 @@ export enum Variant {
   CONTENT
 }
 
+export const VariantNameMap = {
+  ['MONOCHROME']: 'Monochrome',
+  ['NEUTRAL']: 'Neutral',
+  ['TONAL_SPOT']: 'Tonal Spot',
+  ['VIBRANT']: 'Vibrant',
+  ['EXPRESSIVE']: 'Expressive',
+  ['FIDELITY']: 'Fidelity',
+  ['CONTENT']: 'Content'
+};
+
 export const colors = [
-  MaterialDynamicColors.background,
-  MaterialDynamicColors.onBackground,
-  MaterialDynamicColors.surface,
-  MaterialDynamicColors.surfaceDim,
-  MaterialDynamicColors.surfaceBright,
-  MaterialDynamicColors.surfaceContainerLowest,
-  MaterialDynamicColors.surfaceContainerLow,
-  MaterialDynamicColors.surfaceContainer,
-  MaterialDynamicColors.surfaceContainerHigh,
-  MaterialDynamicColors.surfaceContainerHighest,
-  MaterialDynamicColors.onSurface,
-  MaterialDynamicColors.surfaceVariant,
-  MaterialDynamicColors.onSurfaceVariant,
-  MaterialDynamicColors.inverseSurface,
-  MaterialDynamicColors.inverseOnSurface,
-  MaterialDynamicColors.outline,
-  MaterialDynamicColors.outlineVariant,
-  MaterialDynamicColors.shadow,
-  MaterialDynamicColors.scrim,
-  MaterialDynamicColors.surfaceTint,
   MaterialDynamicColors.primary,
   MaterialDynamicColors.onPrimary,
   MaterialDynamicColors.primaryContainer,
@@ -64,7 +54,27 @@ export const colors = [
   MaterialDynamicColors.tertiaryFixed,
   MaterialDynamicColors.tertiaryFixedDim,
   MaterialDynamicColors.onTertiaryFixed,
-  MaterialDynamicColors.onTertiaryFixedVariant
+  MaterialDynamicColors.onTertiaryFixedVariant,
+  MaterialDynamicColors.background,
+  MaterialDynamicColors.onBackground,
+  MaterialDynamicColors.surface,
+  MaterialDynamicColors.surfaceDim,
+  MaterialDynamicColors.surfaceBright,
+  MaterialDynamicColors.surfaceContainerLowest,
+  MaterialDynamicColors.surfaceContainerLow,
+  MaterialDynamicColors.surfaceContainer,
+  MaterialDynamicColors.surfaceContainerHigh,
+  MaterialDynamicColors.surfaceContainerHighest,
+  MaterialDynamicColors.onSurface,
+  MaterialDynamicColors.surfaceVariant,
+  MaterialDynamicColors.onSurfaceVariant,
+  MaterialDynamicColors.inverseSurface,
+  MaterialDynamicColors.inverseOnSurface,
+  MaterialDynamicColors.outline,
+  MaterialDynamicColors.outlineVariant,
+  MaterialDynamicColors.shadow,
+  MaterialDynamicColors.scrim,
+  MaterialDynamicColors.surfaceTint
 ];
 
 export const getColorsHexNameMap = (scheme: DynamicScheme) =>

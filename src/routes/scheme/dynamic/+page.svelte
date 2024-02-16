@@ -1,11 +1,11 @@
 <script lang="ts">
+  import ColorPicker from '$lib/components/ColorPicker.svelte';
+  import FormButton from '$lib/components/FormButton.svelte';
   import FormInput from '$lib/components/FormInput.svelte';
   import FormSelect from '$lib/components/FormSelect.svelte';
-  import ColorPicker from '$lib/components/ColorPicker.svelte';
-  import type { PageData } from './$types';
-  import FormRadio from '$lib/components/FormRadio.svelte';
-  import FormButton from '$lib/components/FormButton.svelte';
+  import { Variant, VariantNameMap } from '$lib/util/@material/material-color-utilities';
   import { hexColorRegex } from '$lib/util/regex';
+  import type { PageData } from './$types';
 
   export let data: PageData;
 
@@ -19,7 +19,9 @@
     }
   }
 
-  export let colorPickerValue = data.color ?? '';
+  export const variantNames = Object.entries(VariantNameMap);
+
+  export let colorPickerValue = data.color ?? '#FFFFFF';
 </script>
 
 <div class="flex h-full flex-col gap-4 p-4">
@@ -58,6 +60,15 @@
           <FormSelect name="theme" value={data.theme ?? ''}>
             <option value="dark">Dark</option>
             <option value="light">Light</option>
+          </FormSelect>
+        </div>
+
+        <div class="flex w-2/12 flex-col gap-1">
+          <label for="theme">Scheme Variant</label>
+          <FormSelect name="variant" value={data.variant ?? ''}>
+            {#each variantNames as option}
+              <option value={option[0]}>{option[1]}</option>
+            {/each}
           </FormSelect>
         </div>
       </div>
