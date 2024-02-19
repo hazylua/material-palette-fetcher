@@ -16,7 +16,7 @@
     outline-none
     outline
     ring-2
-    ring-onBackground transition-all hover:outline-2 hover:outline-primary hover:ring-0 focus:outline-2 focus:outline-primary
+    ring-onBackground transition-all hover:outline-2 hover:ring-primary focus:outline-2 focus:outline-primary
     focus:ring-0
     `,
     className
