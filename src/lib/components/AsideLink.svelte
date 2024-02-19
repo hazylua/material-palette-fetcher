@@ -6,13 +6,12 @@
   export let name: string = '';
   export let indent: number = 0;
   export const isPath = $page.url.pathname.includes(path);
-  console.log(indent);
 </script>
 
 {#if children.length > 0}
   <input type="checkbox" class="peer hidden" id={path} checked={isPath} />
   <label
-    class={clsx('block cursor-pointer pl-3 py-1.5', isPath && 'font-semibold text-primary')}
+    class={clsx('block cursor-pointer py-1.5 pl-3', isPath && 'font-semibold text-primary')}
     for={path}
   >
     {name}
@@ -25,7 +24,10 @@
   </div>
 {:else}
   <a
-    class={clsx('cursor-pointer pl-3 py-1.5 hover:underline', isPath && 'font-semibold text-primary')}
+    class={clsx(
+      'cursor-pointer py-1.5 pl-3 hover:underline',
+      isPath && 'font-semibold text-primary'
+    )}
     href={path}>{name}</a
   >
 {/if}
