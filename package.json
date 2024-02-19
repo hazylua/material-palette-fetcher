@@ -40,6 +40,7 @@
   "type": "module",
   "dependencies": {
     "@material/material-color-utilities": "^0.2.7",
+    "@tabler/icons-svelte": "^2.47.0",
     "clsx": "^2.1.0"
   }
 }

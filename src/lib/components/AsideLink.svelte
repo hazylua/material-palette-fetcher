@@ -5,27 +5,30 @@
   export let children: any[] = [];
   export let name: string = '';
   export let indent: number = 0;
+  export const isPath = $page.url.pathname.includes(path);
+  console.log(indent);
 </script>
 
 {#if children.length > 0}
-  <input type="checkbox" class={`hidden peer-checked:${path}`} id={path} />
-  <label for={path}>{name}</label>
-{/if}
-{#if children.length === 0}
+  <input type="checkbox" class="peer hidden" id={path} checked={isPath} />
+  <label
+    class={clsx('block cursor-pointer pl-3 py-1.5', isPath && 'font-semibold text-primary')}
+    for={path}
+  >
+    {name}
+  </label>
+
+  <div class={clsx('hidden flex-col peer-checked:flex', `bg-surfaceContainer`)}>
+    {#each children as child}
+      <svelte:self {...child} indent={indent + 1} />
+    {/each}
+  </div>
+{:else}
   <a
-    class={clsx(
-      'hover:underline',
-      $page.url.pathname.includes(path) && 'font-semibold text-primary'
-    )}
+    class={clsx('cursor-pointer pl-3 py-1.5 hover:underline', isPath && 'font-semibold text-primary')}
     href={path}>{name}</a
   >
 {/if}
-
-{#each children as child}
-  <div class="flex flex-col gap-2 bg-surface">
-    <svelte:self {...child} indent={indent + 24} />
-  </div>
-{/each}
 
 <style lang="postcss">
   .vis-hidden {

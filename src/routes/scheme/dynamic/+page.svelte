@@ -24,7 +24,7 @@
   export let colorPickerValue = data.color ?? '#FFFFFF';
 </script>
 
-<div class="flex h-full flex-col gap-4 p-4">
+<div class="flex flex-col gap-4">
   <section>
     <div class="mb-4 rounded bg-surface px-2 py-1 text-onSurface">
       <p>Generate a scheme from a color.</p>
@@ -77,15 +77,16 @@
       </div>
     </form>
   </section>
+
   <section class="flex w-full flex-grow overflow-hidden">
-    <div class="relative w-full">
+    <div class=" w-full">
       {#if data.scheme}
-        <div class="absolute left-0 top-0 flex h-full w-full gap-2">
-          <ul class="h-full w-1/2 list-none overflow-y-scroll rounded">
+        <div class="flex h-full w-full gap-2">
+          <ul class="h-full w-1/2 list-none rounded px-3 py-2 bg-surfaceContainer">
             {#each data.scheme as entry}
               <li class="h-20">
                 <div
-                  class="relative flex h-full w-full items-center justify-center"
+                  class=" flex h-full w-full items-center justify-center"
                   style={`background-color: ${entry[1]};`}
                 >
                   <span class="border border-primary bg-onPrimary px-2 py-1 text-primary">
@@ -95,9 +96,10 @@
               </li>
             {/each}
           </ul>
-          <div class="h-full w-1/2 overflow-y-scroll">
-            <p>Click on the text below to select all of it.</p>
-            <pre class="select-all">{data.json}</pre>
+          <div class="bg-surfaceContainer w-1/2 rounded px-3 py-2">
+            <p class="mb-2 text-onSurface">Click on the text below to select all of it.</p>
+            <pre
+              class="select-all text-sm selection:bg-primary selection:text-onPrimary hover:text-primary">{data.json}</pre>
           </div>
         </div>
       {/if}

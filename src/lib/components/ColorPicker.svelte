@@ -10,12 +10,12 @@
 <input
   class={clsx(
     `
-    appearance-none
-    border border-outline
+    hover:outline-primary
+    appearance-none border-2
+    border-background
     bg-background
     outline-none
-    outline
-    hover:border-primary focus:border-current focus:outline-1 focus:outline-primary
+    outline ring-2 ring-primary hover:outline-2 hover:ring-0 focus:outline-2 focus:outline-primary
     focus:ring-0
     `,
     className
