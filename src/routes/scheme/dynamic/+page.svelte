@@ -3,7 +3,7 @@
   import FormButton from '$lib/components/FormButton.svelte';
   import FormInput from '$lib/components/FormInput.svelte';
   import FormSelect from '$lib/components/FormSelect.svelte';
-  import { Variant, VariantNameMap } from '$lib/util/@material/material-color-utilities';
+  import { VariantNameMap } from '$lib/util/@material/material-color-utilities';
   import { hexColorRegex } from '$lib/util/regex';
   import type { PageData } from './$types';
 

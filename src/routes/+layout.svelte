@@ -6,7 +6,7 @@
   export let data: LayoutServerData;
 </script>
 
-<div class="pb-100 flex h-full flex-row border-4 border-background px-44 pt-12">
+<div class=" flex-row border-4 border-background px-44 pt-12">
   <nav
     class="fixed left-0 top-0 flex h-12 w-full bg-surfaceContainerHighest px-4 py-2 text-onSurface"
   >
@@ -36,7 +36,12 @@
       bg-surfaceContainerHigh text-onSurface"
     >
       {#each data.routes as route}
-        <AsideLink path={route.path} children={route.children} name={route.name}></AsideLink>
+        <AsideLink
+          path={route.path}
+          type={route.type}
+          children={route.children}
+          name={route.name}
+        />
       {/each}
     </div>
   </aside>
