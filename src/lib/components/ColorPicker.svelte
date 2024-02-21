@@ -21,6 +21,7 @@
     `,
     className
   )}
+  on:change
   type="color"
   {id}
   {value}

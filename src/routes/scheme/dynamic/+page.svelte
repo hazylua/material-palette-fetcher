@@ -10,12 +10,19 @@
   export let data: PageData;
 
   function changeColorPickerValue(e: KeyboardEvent) {
-    console.log(e.currentTarget);
     if (e.shiftKey === true && e.key === 'Enter' && e.target != null) {
+      e.preventDefault();
       const value = (e.target as HTMLInputElement).value;
       if (hexColorRegex.test(value)) {
         colorPickerValue = value;
       }
+    }
+  }
+
+  function changeColorInputValue(e: Event) {
+    if (true) {
+      const value = (e.target as HTMLInputElement).value;
+      colorPickerValue = value;
     }
   }
 
@@ -40,6 +47,7 @@
                 name="color"
                 className="h-8 w-8"
                 value={colorPickerValue ?? data.color}
+                on:change={changeColorInputValue}
               />
             </div>
             <div class="flex flex-col gap-1">
@@ -82,7 +90,7 @@
     <div class=" w-full">
       {#if data.scheme}
         <div class="flex h-full w-full gap-2">
-          <ul class="h-full w-1/2 list-none rounded px-3 py-2 bg-surfaceContainer">
+          <ul class="h-full w-1/2 list-none rounded bg-surfaceContainer px-3 py-2">
             {#each data.scheme as entry}
               <li class="h-20">
                 <div
@@ -96,7 +104,7 @@
               </li>
             {/each}
           </ul>
-          <div class="bg-surfaceContainer w-1/2 rounded px-3 py-2">
+          <div class="w-1/2 rounded bg-surfaceContainer px-3 py-2">
             <p class="mb-2 text-onSurface">Click on the text below to select all of it.</p>
             <pre
               class="select-all text-sm selection:bg-primary selection:text-onPrimary hover:text-primary">{data.json}</pre>
