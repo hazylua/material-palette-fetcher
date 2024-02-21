@@ -6,7 +6,7 @@
   export let children: any[] = [];
   export let name: string = '';
   export let indent: number = 0;
-  $: isPath = $page.url.pathname.includes(path);;
+  $: isPath = $page.url.pathname.includes(path);
 </script>
 
 {#if type === 2 && children.length > 0}
