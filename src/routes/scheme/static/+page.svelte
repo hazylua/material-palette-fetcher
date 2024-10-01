@@ -5,7 +5,7 @@
   import type { PageData } from './$types';
   import FormRadio from '$lib/components/FormRadio.svelte';
   import FormButton from '$lib/components/FormButton.svelte';
-  import { hexColorRegex } from '$lib/util/regex';
+  import { hexColorRegex } from '$lib/utils/regex';
 
   export let data: PageData;
 

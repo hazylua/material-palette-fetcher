@@ -1,6 +1,6 @@
 import { CorePalette, Scheme, argbFromHex, hexFromArgb } from '@material/material-color-utilities';
 import type { PageServerLoad } from '../$types';
-import { hexColorRegex } from '$lib/util/regex';
+import { hexColorRegex } from '$lib/utils/regex';
 
 function throwErr(msg: string | null) {
   return {
@@ -23,6 +23,8 @@ export const load: PageServerLoad = ({ url }) => {
     if (color != null) {
       if (hexColorRegex.test(color)) {
         const argb = argbFromHex(color);
+
+        console.log(argb)
 
         let scheme;
         if (theme != null) {

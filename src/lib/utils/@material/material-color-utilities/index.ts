@@ -1,4 +1,4 @@
-import { snakeToCamel } from '$lib/util/string';
+import { snakeToCamel } from '$lib/utils/string';
 import {
   DynamicScheme,
   MaterialDynamicColors,

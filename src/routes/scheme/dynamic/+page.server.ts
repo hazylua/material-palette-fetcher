@@ -1,5 +1,5 @@
-import { Variant, getColorsHexNameMap } from '$lib/util/@material/material-color-utilities';
-import { hexColorRegex } from '$lib/util/regex';
+import { Variant, getColorsHexNameMap } from '$lib/utils/@material/material-color-utilities';
+import { hexColorRegex } from '$lib/utils/regex';
 import {
   DynamicScheme,
   Hct,
@@ -31,6 +31,8 @@ function getDynamicSchemeParams(searchParams: URLSearchParams) {
 export const load: PageServerLoad = ({ url }) => {
   if (url.searchParams) {
     const { color, theme, variant } = getDynamicSchemeParams(url.searchParams);
+
+    console.log(color)
 
     if (color != null) {
       if (hexColorRegex.test(color)) {

@@ -5,7 +5,11 @@ import { dark, light } from './themes/index.cjs';
 export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
-    mono: ['Consolas']
+    fontFamily: {
+      serif: ['Fira Code'],
+      sans: ['Inter'],
+      mono: ['Roboto Mono']
+    }
   },
   plugins: [
     require('@tailwindcss/forms'),

@@ -1,4 +1,4 @@
-export enum ERouteType {
+export const enum ERouteType {
   MENU,
   LINK,
   CATEGORY
@@ -27,6 +27,19 @@ export const routes: TRoute[] = [
         name: 'Dynamic',
         type: ERouteType.LINK,
         path: '/scheme/dynamic',
+        children: []
+      }
+    ]
+  },
+  {
+    name: 'Debug',
+    type: ERouteType.CATEGORY,
+    path: '/debug',
+    children: [
+      {
+        name: 'Developer Page',
+        type: ERouteType.LINK,
+        path: '/debug/developer',
         children: []
       }
     ]

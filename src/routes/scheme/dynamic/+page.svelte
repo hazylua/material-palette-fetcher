@@ -3,8 +3,8 @@
   import FormButton from '$lib/components/FormButton.svelte';
   import FormInput from '$lib/components/FormInput.svelte';
   import FormSelect from '$lib/components/FormSelect.svelte';
-  import { VariantNameMap } from '$lib/util/@material/material-color-utilities';
-  import { hexColorRegex } from '$lib/util/regex';
+  import { VariantNameMap } from '$lib/utils/@material/material-color-utilities';
+  import { hexColorRegex } from '$lib/utils/regex';
   import type { PageData } from './$types';
 
   export let data: PageData;
@@ -33,7 +33,7 @@
 
 <div class="flex flex-col gap-4">
   <section>
-    <div class="mb-4 rounded bg-surface px-2 py-1 text-onSurface">
+    <div class="w-fit mb-4 rounded bg-surfaceContainerHigh p-2 text-onSurface">
       <p>Generate a scheme from a color.</p>
     </div>
     <form class="flex flex-col gap-4">

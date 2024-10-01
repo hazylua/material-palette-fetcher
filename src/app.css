@@ -4,4 +4,47 @@
 
 * {
   scrollbar-width: thin;
+  scrollbar-color: theme(colors.onSurfaceVariant) theme(colors.surfaceContainerHighest);
+}
+
+@layer base {
+  @media (scripting: none) {
+    @media (prefers-color-scheme: dark) {
+      :root {
+        @apply dark;
+      }
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        @apply light;
+      }
+    }
+  }
+}
+
+:root {
+  @apply light;
+}
+
+@media (prefers-color-scheme: dark) {
+  #theme-wrapper {
+    @apply dark;
+  }
+}
+@media (prefers-color-scheme: light) {
+  #theme-wrapper {
+    @apply light;
+  }
+}
+
+#theme-switcher:checked ~ #theme-wrapper {
+  @apply light;
+}
+
+#theme-switcher:checked #theme-moon {
+  @apply hidden;
+}
+
+#theme-switcher:checked #theme-moon {
+  @apply block;
 }
