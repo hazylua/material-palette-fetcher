@@ -1,5 +1,5 @@
-import React from 'react';
-import clsx from 'clsx';
+import React, { FC } from "react";
+import clsx from "clsx";
 
 interface ColorPickerProps {
   id?: string;
@@ -9,7 +9,13 @@ interface ColorPickerProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const ColorPicker: React.FC<ColorPickerProps> = ({ id, name, value, className, onChange }) => {
+const ColorPicker: FC<ColorPickerProps> = ({
+  id,
+  name,
+  value,
+  className,
+  onChange,
+}) => {
   return (
     <input
       className={clsx(

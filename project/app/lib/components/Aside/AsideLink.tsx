@@ -38,7 +38,7 @@ const AsideLink: FC<AsideLinkProps> = ({
           <label
             className={clsx(
               "hover:bg- block cursor-pointer py-1.5 pl-3",
-              isPath && "font-semibold text-primary",
+              isPath && "font-semibold text-primary"
             )}
             htmlFor={path}
           >
@@ -48,7 +48,7 @@ const AsideLink: FC<AsideLinkProps> = ({
           <div
             className={clsx(
               "hidden flex-col peer-checked:flex",
-              "bg-surfaceContainer",
+              "bg-surfaceContainer"
             )}
           >
             {children.map((child, index) => (
@@ -60,7 +60,7 @@ const AsideLink: FC<AsideLinkProps> = ({
         <a
           className={clsx(
             "cursor-pointer py-2 pl-3 hover:underline",
-            isPath && "font-semibold text-primary",
+            isPath && "font-semibold text-primary"
           )}
           href={path}
         >

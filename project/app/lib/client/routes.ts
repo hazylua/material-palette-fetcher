@@ -1,4 +1,4 @@
-export const enum ERouteType {
+export enum ERouteType {
   MENU,
   LINK,
   CATEGORY,

@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import AsideLink from './AsideLink';
+import { FC } from "react";
+import AsideLink from "./AsideLink";
 
 type TRoute = {
   path: string;
@@ -13,7 +13,7 @@ interface AsideMenuProps {
   classes?: string;
 }
 
-const AsideMenu: FC<AsideMenuProps> = ({ routes, classes = '' }) => {
+const AsideMenu: FC<AsideMenuProps> = ({ routes, classes = "" }) => {
   return (
     <aside className={classes}>
       <div className="flex flex-col w-40 overflow-y-auto max-w-40 bg-surfaceContainerHigh text-onSurface">
