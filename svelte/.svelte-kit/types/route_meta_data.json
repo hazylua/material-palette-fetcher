@@ -1,0 +1,9 @@
+{
+	"/": [],
+	"/scheme/dynamic": [
+		"src/routes/scheme/dynamic/+page.server.ts"
+	],
+	"/scheme/static": [
+		"src/routes/scheme/static/+page.server.ts"
+	]
+}

@@ -22,16 +22,16 @@
   export let colorPickerValue = data.color ?? '';
 </script>
 
-<div class="flex h-full flex-col gap-4 p-4">
+<div class="flex flex-col h-full gap-4 p-4">
   <section>
-    <div class="mb-4 rounded bg-surface px-2 py-1 text-onSurface">
+    <div class="px-2 py-1 mb-4 rounded bg-surface text-onSurface">
       <p>Generate a scheme from a color.</p>
     </div>
     <form class="flex flex-col gap-4">
       <div class="flex flex-row gap-4">
         <div class="flex flex-col items-start gap-1">
           <label for="theme">Root Color</label>
-          <div class="flex flex-row gap-2">
+          <div class="flex flex-row gap-4">
             <div>
               <ColorPicker
                 id="color"
@@ -53,7 +53,7 @@
           </div>
         </div>
 
-        <div class="flex w-2/12 flex-col gap-1">
+        <div class="flex flex-col w-2/12 gap-1">
           <label for="theme">Scheme Theme</label>
           <FormSelect name="theme" value={data.theme ?? ''}>
             <option value="dark">Dark</option>
@@ -64,9 +64,9 @@
         <div class="w-4/12">
           <div class="mb-1">Scheme Type</div>
           <div
-            class="flex w-fit flex-col justify-between rounded border border-primary bg-surfaceVariant text-onSurfaceVariant"
+            class="flex flex-col justify-between border rounded w-fit border-primary bg-surfaceVariant text-onSurfaceVariant"
           >
-            <div class="flex flex-row items-center gap-3 border-b border-outline px-2 py-1">
+            <div class="flex flex-row items-center gap-3 px-2 py-1 border-b border-outline">
               <FormRadio
                 name="type"
                 value="default"
@@ -79,7 +79,7 @@
               </div>
             </div>
             <div class="flex flex-col">
-              <div class="flex flex-row items-center gap-3 border-b border-outline px-2 py-1">
+              <div class="flex flex-row items-center gap-3 px-2 py-1 border-b border-outline">
                 <FormRadio
                   name="type"
                   value="content"
@@ -92,7 +92,7 @@
                 </div>
               </div>
             </div>
-            <div class="flex flex-row items-center gap-3 border-outline px-2 py-1">
+            <div class="flex flex-row items-center gap-3 px-2 py-1 border-outline">
               <FormRadio
                 name="type"
                 value="from-core-palette"
@@ -114,25 +114,25 @@
       </div>
     </form>
   </section>
-  <section class="flex w-full flex-grow overflow-hidden">
+  <section class="flex flex-grow w-full overflow-hidden">
     <div class="relative w-full">
       {#if data.scheme}
-        <div class="absolute left-0 top-0 flex h-full w-full gap-2">
-          <ul class="h-full w-1/2 list-none overflow-y-scroll rounded">
+        <div class="absolute top-0 left-0 flex w-full h-full gap-2">
+          <ul class="w-1/2 h-full overflow-y-scroll list-none rounded">
             {#each data.scheme as entry}
               <li class="h-20">
                 <div
-                  class="relative flex h-full w-full items-center justify-center"
+                  class="relative flex items-center justify-center w-full h-full"
                   style={`background-color: ${entry[1]};`}
                 >
-                  <span class="border border-primary bg-onPrimary px-2 py-1 text-primary">
+                  <span class="px-2 py-1 border border-primary bg-onPrimary text-primary">
                     {entry[0]}</span
                   >
                 </div>
               </li>
             {/each}
           </ul>
-          <div class="h-full w-1/2 overflow-y-scroll">
+          <div class="w-1/2 h-full overflow-y-scroll">
             <p>Click on the text below to select all of it.</p>
             <pre class="select-all">{data.json}</pre>
           </div>

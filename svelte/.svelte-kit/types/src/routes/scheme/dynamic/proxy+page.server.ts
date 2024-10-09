@@ -1,17 +1,39 @@
-import { json, LoaderFunction } from '@remix-run/node';
-import { Hct, argbFromHex, SchemeTonalSpot, DynamicScheme } from 'your-color-utils-library';
+// @ts-nocheck
+import { Variant, getColorsHexNameMap } from '$lib/utils/@material/material-color-utilities';
+import { hexColorRegex } from '$lib/utils/regex';
 import {
-  getDynamicSchemeParams,
-  getColorsHexNameMap,
-  hexColorRegex,
-  throwErr
-} from 'your-utils-library';
+  DynamicScheme,
+  Hct,
+  SchemeTonalSpot,
+  argbFromHex
+} from '@material/material-color-utilities';
+import type { PageServerLoad } from '../$types';
 
-export const loader: LoaderFunction = async ({ request }) => {
-  const url = new URL(request.url);
+function throwErr(msg: string | null | undefined) {
+  return {
+    err: msg ?? 'An error has occurred.'
+  };
+}
 
+function getDynamicSchemeParams(searchParams: URLSearchParams) {
+  if (searchParams.get('variant') !== null) {
+    throwErr('Invalid variant.');
+  }
+  const variant = searchParams.get('variant') as string as keyof typeof Variant;
+
+  return {
+    color: searchParams.get('color'),
+    theme: searchParams.get('theme'),
+    type: searchParams.get('type'),
+    variant: Variant[variant]
+  };
+}
+
+export const load = ({ url }: Parameters<PageServerLoad>[0]) => {
   if (url.searchParams) {
     const { color, theme, variant } = getDynamicSchemeParams(url.searchParams);
+
+    console.log(color)
 
     if (color != null) {
       if (hexColorRegex.test(color)) {
@@ -32,7 +54,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
         const arr = Array.from(getColorsHexNameMap(dynamic).entries());
 
-        return json({
+        return {
           color,
           theme,
           variant: Variant[variant],
@@ -44,12 +66,11 @@ export const loader: LoaderFunction = async ({ request }) => {
             null,
             1
           )
-        });
+        };
       } else {
-        throw throwErr('Invalid color format.');
+        return throwErr('Invalid color format.');
       }
     }
   }
-
-  throw throwErr('Missing search parameters.');
+  return {};
 };

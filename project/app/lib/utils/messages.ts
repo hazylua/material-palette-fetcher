@@ -1,5 +1,5 @@
 export function throwErrorMessage(msg: string | null) {
-  return {
-    err: msg ?? "Invalid params.",
-  };
+    return {
+        err: msg ?? "Invalid params.",
+    };
 }
