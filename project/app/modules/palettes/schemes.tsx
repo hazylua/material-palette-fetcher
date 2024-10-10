@@ -62,27 +62,24 @@ function getResponse(searchParams: URLSearchParams) {
 
             const arr = Array.from(getColorsHexNameMap(dynamic).entries());
 
-            return getServerResponse(
-                "SCheme generated",
-                json({
-                    color,
-                    theme,
-                    variant: Variant[variant],
-                    scheme: arr,
-                    json: JSON.stringify(
-                        arr.reduceRight((prev, curr) => {
-                            return { [curr[0]]: curr[1], ...prev };
-                        }, {}),
-                        null,
-                        1,
-                    ),
-                }),
-            );
+            return json({
+                color,
+                theme,
+                variant: Variant[variant],
+                scheme: arr,
+                json: JSON.stringify(
+                    arr.reduceRight((prev, curr) => {
+                        return { [curr[0]]: curr[1], ...prev };
+                    }, {}),
+                    null,
+                    1,
+                ),
+            });
         } else {
-            return getServerResponse("Invalid color format.", null);
+            return json(null);
         }
     } else {
-        return getServerResponse("Color is required.", null);
+        return json(null);
     }
 }
 
@@ -106,13 +103,15 @@ export async function loader({ request }: ActionFunctionArgs) {
     const url = new URL(request.url);
     if (url.searchParams) {
         return getResponse(url.searchParams);
+    } else {
+        return json(null);
     }
 }
 
 const variantNames = Object.entries(VariantNameMap);
 
 export default function PaletteSchemes() {
-    const { msg, data } = useLoaderData<typeof loader>();
+    const data = useLoaderData<typeof loader>();
 
     const [searchParams] = useSearchParams();
 
@@ -194,14 +193,6 @@ export default function PaletteSchemes() {
                         <FormButton type="submit">Generate</FormButton>
                     </div>
                 </Form>
-            </section>
-
-            <section>
-                {msg && (
-                    <div className="bg-error p-2 text-onError">
-                        <p>{msg}</p>
-                    </div>
-                )}
             </section>
 
             <section>
