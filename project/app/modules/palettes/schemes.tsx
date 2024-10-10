@@ -5,24 +5,21 @@ import {
     SchemeTonalSpot,
 } from "@material/material-color-utilities";
 import { ActionFunctionArgs, TypedResponse } from "@remix-run/node";
-import {
-    Form,
-    json,
-    useLoaderData,
-    useSearchParams
-} from "@remix-run/react";
+import { Form, json, useLoaderData, useSearchParams } from "@remix-run/react";
 import { FactoryArg } from "imask";
 import { ChangeEvent, useState } from "react";
 import ColorPicker from "~/lib/components/ColorPicker";
 import FormButton from "~/lib/components/FormButton";
 import FormSelect from "~/lib/components/FormSelect";
 import MaskedFormInput from "~/lib/components/MaskedFormInput";
+import { ServerResponseBody } from "~/lib/types/server";
 import {
     getColorsHexNameMap,
     Variant,
     VariantNameMap,
 } from "~/lib/utils/@material/material-color-utilities";
 import { hexColorRegex } from "~/lib/utils/regex";
+import { getServerResponse } from "~/lib/utils/server";
 
 const maskOptions: FactoryArg = {
     mask: "{#}XXXXXX",
@@ -33,12 +30,6 @@ const maskOptions: FactoryArg = {
     },
 };
 
-function throwErr(msg: string | null | undefined) {
-    return {
-        err: msg ?? "An error has occurred.",
-    };
-}
-
 type TSchemeBody = {
     color: string;
     theme: string | null;
@@ -47,11 +38,9 @@ type TSchemeBody = {
     json: string;
 };
 
-type TSchemeResponse = TypedResponse<TSchemeBody | null>;
+type TSchemeResponse = TypedResponse<ServerResponseBody<TSchemeBody>>;
 
-function getResponse(
-    searchParams: URLSearchParams,
-): TypedResponse<TSchemeBody> {
+function getResponse(searchParams: URLSearchParams) {
     const { color, theme, variant } = getDynamicSchemeParams(searchParams);
 
     if (color != null) {
@@ -73,30 +62,33 @@ function getResponse(
 
             const arr = Array.from(getColorsHexNameMap(dynamic).entries());
 
-            return json({
-                color,
-                theme,
-                variant: Variant[variant],
-                scheme: arr,
-                json: JSON.stringify(
-                    arr.reduceRight((prev, curr) => {
-                        return { [curr[0]]: curr[1], ...prev };
-                    }, {}),
-                    null,
-                    1,
-                ),
-            });
+            return getServerResponse(
+                "SCheme generated",
+                json({
+                    color,
+                    theme,
+                    variant: Variant[variant],
+                    scheme: arr,
+                    json: JSON.stringify(
+                        arr.reduceRight((prev, curr) => {
+                            return { [curr[0]]: curr[1], ...prev };
+                        }, {}),
+                        null,
+                        1,
+                    ),
+                }),
+            );
         } else {
-            // throw new Error("Invalid color format.");
+            return getServerResponse("Invalid color format.", null);
         }
     } else {
-        // throw new Error("Color is required.");
+        return getServerResponse("Color is required.", null);
     }
 }
 
 function getDynamicSchemeParams(searchParams: URLSearchParams) {
     if (searchParams.get("variant") !== null) {
-        throwErr("Invalid variant.");
+        getServerResponse("Invalid variant.", null);
     }
     const variant = searchParams.get(
         "variant",
@@ -112,16 +104,15 @@ function getDynamicSchemeParams(searchParams: URLSearchParams) {
 
 export async function loader({ request }: ActionFunctionArgs) {
     const url = new URL(request.url);
-    return json({hi: 'lkdsalkdsa'});
     if (url.searchParams) {
-        //return getResponse(url.searchParams);
+        return getResponse(url.searchParams);
     }
 }
 
 const variantNames = Object.entries(VariantNameMap);
 
 export default function PaletteSchemes() {
-    const data = useLoaderData<typeof loader>();
+    const { msg, data } = useLoaderData<typeof loader>();
 
     const [searchParams] = useSearchParams();
 
@@ -205,29 +196,38 @@ export default function PaletteSchemes() {
                 </Form>
             </section>
 
-            {/* {data && (
-                <div className="absolute top-0 left-0 flex w-full h-full gap-2">
-                    <ul className="w-1/2 h-full overflow-y-scroll list-none rounded">
-                        {data.scheme.map((entry: [string, string]) => (
-                            <li key={entry[0]} className="h-20">
-                                <div
-                                    className="relative flex items-center justify-center w-full h-full"
-                                    style={{ backgroundColor: entry[1] }}
-                                >
-                                    <span className="px-2 py-1 border border-primary bg-onPrimary text-primary">
-                                        {entry[0]}
-                                    </span>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
-                    <div className="w-1/2 h-full overflow-y-scroll">
-                        <p>Click on the text below to select all of it.</p>
-                        <pre className="select-all">{data.json}</pre>
+            <section>
+                {msg && (
+                    <div className="bg-error p-2 text-onError">
+                        <p>{msg}</p>
                     </div>
-                </div>
-            )}
-            <span className="hover:text-red-300">{"hahaha retard"}</span> */}
+                )}
+            </section>
+
+            <section>
+                {data?.scheme && (
+                    <div className="absolute top-0 left-0 flex w-full h-full gap-2">
+                        <ul className="w-1/2 h-full overflow-y-scroll list-none rounded">
+                            {data.scheme.map((entry: [string, string]) => (
+                                <li key={entry[0]} className="h-20">
+                                    <div
+                                        className="relative flex items-center justify-center w-full h-full"
+                                        style={{ backgroundColor: entry[1] }}
+                                    >
+                                        <span className="px-2 py-1 border border-primary bg-onPrimary text-primary">
+                                            {entry[0]}
+                                        </span>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                        <div className="w-1/2 h-full overflow-y-scroll">
+                            <p>Click on the text below to select all of it.</p>
+                            <pre className="select-all">{data.json}</pre>
+                        </div>
+                    </div>
+                )}
+            </section>
         </div>
     );
 }
