@@ -4,22 +4,20 @@ import {
     Hct,
     SchemeTonalSpot,
 } from "@material/material-color-utilities";
-import { ActionFunctionArgs, TypedResponse } from "@remix-run/node";
-import { Form, json, useLoaderData, useSearchParams } from "@remix-run/react";
+import { ActionFunctionArgs } from "@remix-run/node";
+import { Form, useLoaderData, useSearchParams } from "@remix-run/react";
 import { FactoryArg } from "imask";
 import { ChangeEvent, useState } from "react";
 import ColorPicker from "~/lib/components/ColorPicker";
 import FormButton from "~/lib/components/FormButton";
 import FormSelect from "~/lib/components/FormSelect";
 import MaskedFormInput from "~/lib/components/MaskedFormInput";
-import { ServerResponseBody } from "~/lib/types/server";
 import {
     getColorsHexNameMap,
     Variant,
     VariantNameMap,
 } from "~/lib/utils/@material/material-color-utilities";
 import { hexColorRegex } from "~/lib/utils/regex";
-import { getServerResponse } from "~/lib/utils/server";
 
 const maskOptions: FactoryArg = {
     mask: "{#}XXXXXX",
@@ -30,7 +28,7 @@ const maskOptions: FactoryArg = {
     },
 };
 
-type TSchemeBody = {
+type TPaletteScheme = {
     color: string;
     theme: string | null;
     variant: string;
@@ -38,10 +36,16 @@ type TSchemeBody = {
     json: string;
 };
 
-type TSchemeResponse = TypedResponse<ServerResponseBody<TSchemeBody>>;
+function getColorScheme(searchParams: URLSearchParams): {
+    error?: string;
+    paletteScheme?: TPaletteScheme;
+} {
+    const { color, theme, variant, error } =
+        getDynamicSchemeParams(searchParams);
 
-function getResponse(searchParams: URLSearchParams) {
-    const { color, theme, variant } = getDynamicSchemeParams(searchParams);
+    if (error) {
+        return { error };
+    }
 
     if (color != null) {
         if (hexColorRegex.test(color)) {
@@ -62,9 +66,8 @@ function getResponse(searchParams: URLSearchParams) {
 
             const arr = Array.from(getColorsHexNameMap(dynamic).entries());
 
-            return getServerResponse(
-                "SCheme generated",
-                json({
+            return {
+                paletteScheme: {
                     color,
                     theme,
                     variant: Variant[variant],
@@ -76,19 +79,19 @@ function getResponse(searchParams: URLSearchParams) {
                         null,
                         1,
                     ),
-                }),
-            );
+                },
+            };
         } else {
-            return getServerResponse("Invalid color format.", null);
+            return { error: "Invalid color format." };
         }
     } else {
-        return getServerResponse("Color is required.", null);
+        return { error: "Color is required." };
     }
 }
 
 function getDynamicSchemeParams(searchParams: URLSearchParams) {
-    if (searchParams.get("variant") !== null) {
-        getServerResponse("Invalid variant.", null);
+    if (!searchParams.get("variant")) {
+        return { error: "Invalid variant." };
     }
     const variant = searchParams.get(
         "variant",
@@ -105,14 +108,14 @@ function getDynamicSchemeParams(searchParams: URLSearchParams) {
 export async function loader({ request }: ActionFunctionArgs) {
     const url = new URL(request.url);
     if (url.searchParams) {
-        return getResponse(url.searchParams);
+        return getColorScheme(url.searchParams);
     }
 }
 
 const variantNames = Object.entries(VariantNameMap);
 
 export default function PaletteSchemes() {
-    const { msg, data } = useLoaderData<typeof loader>();
+    const { error, paletteScheme: data } = useLoaderData<typeof loader>();
 
     const [searchParams] = useSearchParams();
 
@@ -132,7 +135,7 @@ export default function PaletteSchemes() {
     }
 
     return (
-        <div className="flex flex-col gap-4 p-4">
+        <div className="flex flex-col h-full gap-4 p-4">
             <section>
                 <div className="w-fit mb-4 bg-surfaceContainerHigh p-2 text-onSurface">
                     <p>Generate a scheme from a color.</p>
@@ -193,40 +196,43 @@ export default function PaletteSchemes() {
                     <div>
                         <FormButton type="submit">Generate</FormButton>
                     </div>
+                    {error && (
+                        <div className="p-1 ring-0 outline-none outline-errorContainer border border-surface outline text-center bg-errorContainer text-error">
+                            <p>{error}</p>
+                        </div>
+                    )}
                 </Form>
             </section>
 
-            <section>
-                {msg && (
-                    <div className="bg-error p-2 text-onError">
-                        <p>{msg}</p>
-                    </div>
-                )}
-            </section>
-
-            <section>
-                {data?.scheme && (
-                    <div className="absolute top-0 left-0 flex w-full h-full gap-2">
-                        <ul className="w-1/2 h-full overflow-y-scroll list-none rounded">
-                            {data.scheme.map((entry: [string, string]) => (
-                                <li key={entry[0]} className="h-20">
-                                    <div
-                                        className="relative flex items-center justify-center w-full h-full"
-                                        style={{ backgroundColor: entry[1] }}
-                                    >
-                                        <span className="px-2 py-1 border border-primary bg-onPrimary text-primary">
-                                            {entry[0]}
-                                        </span>
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                        <div className="w-1/2 h-full overflow-y-scroll">
-                            <p>Click on the text below to select all of it.</p>
-                            <pre className="select-all">{data.json}</pre>
+            <section className="flex flex-grow w-full overflow-hidden">
+                <div className="relative w-full">
+                    {data?.scheme && data?.scheme.length > 0 && (
+                        <div className="absolute top-0 left-0 flex w-full h-full gap-2">
+                            <ul className="w-1/2 h-full overflow-y-scroll list-none rounded">
+                                {data.scheme.map((entry: [string, string]) => (
+                                    <li key={entry[0]} className="h-20">
+                                        <div
+                                            className="relative flex items-center justify-center w-full h-full"
+                                            style={{
+                                                backgroundColor: entry[1],
+                                            }}
+                                        >
+                                            <span className="px-2 py-1 border border-primary bg-onPrimary text-primary">
+                                                {entry[0]}
+                                            </span>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                            <div className="w-1/2 h-full overflow-y-scroll">
+                                <p className="bg-surfaceContainerLow px-2 py-1 text-primary font-mono">
+                                    Click on the text below to select all of it.
+                                </p>
+                                <pre className="select-all">{data.json}</pre>
+                            </div>
                         </div>
-                    </div>
-                )}
+                    )}
+                </div>
             </section>
         </div>
     );
