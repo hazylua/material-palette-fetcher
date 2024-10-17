@@ -195,7 +195,7 @@ export default function PaletteSchemes() {
                             </FormSelect>
                         </div>
                     </div>
-                    <div className='flex flex-row items-center gap-4'>
+                    <div className="flex flex-row items-center gap-4">
                         <FormButton type="submit">Generate</FormButton>{" "}
                         {error && (
                             <div className="text-error underline decoration-wavy">
