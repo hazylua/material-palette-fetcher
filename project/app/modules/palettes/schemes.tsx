@@ -107,8 +107,10 @@ function getDynamicSchemeParams(searchParams: URLSearchParams) {
 
 export async function loader({ request }: ActionFunctionArgs) {
     const url = new URL(request.url);
-    if (url.searchParams) {
+    if (url.searchParams.size > 0) {
         return getColorScheme(url.searchParams);
+    } else {
+        return {};
     }
 }
 
@@ -193,14 +195,14 @@ export default function PaletteSchemes() {
                             </FormSelect>
                         </div>
                     </div>
-                    <div>
-                        <FormButton type="submit">Generate</FormButton>
+                    <div className='flex flex-row gap-4 items-center'>
+                        <FormButton type="submit">Generate</FormButton>{" "}
+                        {error && (
+                            <div className="decoration-wavy underline text-error">
+                                <p>{error}</p>
+                            </div>
+                        )}
                     </div>
-                    {error && (
-                        <div className="p-1 ring-0 outline-none outline-errorContainer border border-surface outline text-center bg-errorContainer text-error">
-                            <p>{error}</p>
-                        </div>
-                    )}
                 </Form>
             </section>
 

@@ -1,15 +1,23 @@
 import clsx from "clsx";
-import type { FC, InputHTMLAttributes } from "react";
+import { forwardRef, type InputHTMLAttributes } from "react";
+
+export const InputClasses = `appearance-none rounded-sm border border-outline bg-surfaceVariant px-2 py-1 outline-none hover:border-primary focus:border-current focus:outline-primary focus:ring-0
+`;
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {}
 
-const Input: FC<InputProps> = (props) => {
-    return (
-        <input
-            className={clsx("rounded bg-neutral-700 px-1.5 py-0.5")}
-            {...props}
-        />
-    );
-};
+const Input = forwardRef<HTMLInputElement, InputProps>(
+    ({ className, ...props }, ref) => {
+        return (
+            <input
+                ref={ref}
+                className={clsx(InputClasses, className)}
+                {...props}
+            />
+        );
+    },
+);
+
+Input.displayName = "Input";
 
 export default Input;
