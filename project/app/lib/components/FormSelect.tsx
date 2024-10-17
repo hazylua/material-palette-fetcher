@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import { FC } from "react";
+import { InputClasses } from "./Input";
 
 interface FormSelectProps
     extends React.SelectHTMLAttributes<HTMLSelectElement> {}
@@ -10,21 +11,7 @@ const FormSelect: FC<FormSelectProps> = ({
     ...restProps
 }) => {
     return (
-        <select
-            className={clsx(
-                ` 
-        appearance-none
-        border border-outline
-        bg-background
-        px-2 py-1
-        outline-none
-        hover:border-primary
-        focus:border-current focus:outline-primary focus:ring-0
-        `,
-                className,
-            )}
-            {...restProps}
-        >
+        <select className={clsx(InputClasses, className)} {...restProps}>
             {children}
         </select>
     );

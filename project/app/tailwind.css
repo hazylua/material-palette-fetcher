@@ -11,6 +11,12 @@ body {
     }
 }
 
+input,
+select,
+button {
+    @apply rounded-sm focus:rounded-none transition-all
+}
+
 input[type="color"] {
     /* border-radius: 9999px; */
     padding: 0;

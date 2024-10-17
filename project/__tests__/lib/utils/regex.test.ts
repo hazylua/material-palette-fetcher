@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { hexColorRegex } from "../regex";
+import { hexColorRegex } from "~/lib/utils/regex";
 
 describe("hexColorRegex", () => {
     it("should match valid 6-character hex colors with a leading #", () => {
